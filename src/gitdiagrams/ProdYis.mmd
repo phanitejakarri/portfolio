@@ -1,0 +1,38 @@
+flowchart TD
+
+subgraph group_0["React 19 + Tailwind 4 · Vite"]
+  node_app["App.jsx<br/>[src/App.jsx]"]
+  node_chat["Chat.jsx<br/>[src/Chat.jsx]"]
+  node_side["Sidebar.jsx<br/>[src/Sidebar.jsx]"]
+end
+
+subgraph group_1["Backend API (VITE_API_URL)"]
+  node_ask["POST /ask<br/>chunked text response"]
+  node_skills["/skills API<br/>list · upload · toggle"]
+end
+
+subgraph group_2["Model & storage"]
+  node_llm{{"Language model<br/>rewrite prompt"}}
+  node_store[("Skill packages<br/>.zip · enabled flag")]
+end
+
+node_app -->|"prompt"| node_ask
+node_ask -->|"streamed tokens"| node_chat
+node_side -->|"upload .zip / toggle"| node_skills
+node_ask --> node_llm
+node_skills --> node_store
+node_store -->|"enabled skills"| node_llm
+
+click node_app "https://github.com/phanitejakarri/ProdYis/blob/HEAD/src/App.jsx"
+click node_chat "https://github.com/phanitejakarri/ProdYis/blob/HEAD/src/Chat.jsx"
+click node_side "https://github.com/phanitejakarri/ProdYis/blob/HEAD/src/Sidebar.jsx"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_app,node_chat,node_side toneBlue
+class node_ask,node_skills toneAmber
+class node_store toneMint
+class node_llm toneRose

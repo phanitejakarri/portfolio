@@ -1,0 +1,44 @@
+flowchart TD
+
+subgraph group_0["React (CRA) · Material UI"]
+  node_login["Login.js<br/>[src/Login.js]"]
+  node_app["App.js<br/>[src/App.js]"]
+  node_player["Player.js<br/>[src/Player.js]"]
+  node_body["Body.js<br/>[src/Body.js]"]
+end
+
+subgraph group_1["Auth & state"]
+  node_auth["spotify.js<br/>[src/spotify.js]"]
+  node_layer["DataLayer.js<br/>[src/DataLayer.js]"]
+  node_reducer["reducer.js<br/>[src/reducer.js]"]
+end
+
+subgraph group_2["Spotify"]
+  node_accounts{{"Spotify Accounts<br/>OAuth implicit grant"}}
+  node_api{{"Spotify Web API<br/>getMe · getPlaylist"}}
+end
+
+node_login --> node_auth
+node_auth -->|"redirect"| node_accounts
+node_app -->|"spotify-web-api-js"| node_api
+node_app -->|"dispatch"| node_layer
+node_layer --> node_reducer
+node_app --> node_player
+node_player --> node_body
+
+click node_login "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/Login.js"
+click node_app "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/App.js"
+click node_player "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/Player.js"
+click node_body "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/Body.js"
+click node_auth "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/spotify.js"
+click node_layer "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/DataLayer.js"
+click node_reducer "https://github.com/phanitejakarri/spotify-clone/blob/HEAD/src/reducer.js"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_login,node_app,node_player,node_body toneBlue
+class node_auth,node_layer,node_reducer toneIndigo
+class node_accounts,node_api toneRose

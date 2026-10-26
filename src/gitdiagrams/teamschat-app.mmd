@@ -1,0 +1,48 @@
+flowchart TD
+
+subgraph group_0["React app · Netlify"]
+  node_login["LoginForm<br/>[src/components/LoginForm.jsx]"]
+  node_app["App.js<br/>[src/App.js]"]
+  node_feed["ChatFeed<br/>[src/components/ChatFeed.jsx]"]
+end
+
+subgraph group_1["Chat components"]
+  node_mine["MyMessage<br/>[src/components/MyMessage.jsx]"]
+  node_theirs["TheirMessage<br/>[src/components/TheirMessage.jsx]"]
+  node_form["MessageForm<br/>[src/components/MessageForm.jsx]"]
+end
+
+subgraph group_2["Session"]
+  node_session[("localStorage<br/>[src/components/LoginForm.jsx]")]
+end
+
+subgraph group_3["Real-time backend"]
+  node_engine{{"ChatEngine API<br/>sockets · chats · users"}}
+end
+
+node_login -->|"save"| node_session
+node_login -->|"reload"| node_app
+node_app -->|"renderChatFeed"| node_feed
+node_feed --> node_mine
+node_feed --> node_theirs
+node_feed --> node_form
+node_form -->|"sendMessage"| node_engine
+node_app -->|"live updates"| node_engine
+
+click node_login "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/components/LoginForm.jsx"
+click node_app "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/App.js"
+click node_feed "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/components/ChatFeed.jsx"
+click node_session "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/components/LoginForm.jsx"
+click node_mine "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/components/MyMessage.jsx"
+click node_theirs "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/components/TheirMessage.jsx"
+click node_form "https://github.com/phanitejakarri/teamschat-app/blob/HEAD/src/components/MessageForm.jsx"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_login,node_app,node_feed toneBlue
+class node_session toneMint
+class node_mine,node_theirs,node_form toneIndigo
+class node_engine toneRose

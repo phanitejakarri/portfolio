@@ -1,0 +1,47 @@
+flowchart TD
+
+subgraph group_0["React frontend"]
+  node_home["Home.js<br/>[src/pages/Home.js]"]
+  node_form["WorkoutForm<br/>[src/components/WorkoutForm.js]"]
+  node_details["WorkoutDetails<br/>[src/components/WorkoutDetails.js]"]
+  node_ctx["WorkoutsContext<br/>[src/context/WorkoutsContext.js]"]
+end
+
+subgraph group_1["Express API"]
+  node_server["server.js<br/>[server.js]"]
+  node_routes["routes/workouts.js<br/>[routes/workouts.js]"]
+  node_ctrl["workoutController<br/>[contollers/workoutController.js]"]
+end
+
+subgraph group_2["Data"]
+  node_model["workoutModel.js<br/>[models/workoutModel.js]"]
+  node_db[("MongoDB<br/>workouts")]
+end
+
+node_home -->|"GET /api/workouts"| node_server
+node_form -->|"POST"| node_routes
+node_details -->|"DELETE"| node_ctrl
+node_form -->|"dispatch"| node_ctx
+node_server --> node_routes
+node_routes --> node_ctrl
+node_ctrl --> node_model
+node_model --> node_db
+
+click node_home "https://github.com/phanitejakarri/Workout-Application-frontend/blob/HEAD/src/pages/Home.js"
+click node_form "https://github.com/phanitejakarri/Workout-Application-frontend/blob/HEAD/src/components/WorkoutForm.js"
+click node_details "https://github.com/phanitejakarri/Workout-Application-frontend/blob/HEAD/src/components/WorkoutDetails.js"
+click node_ctx "https://github.com/phanitejakarri/Workout-Application-frontend/blob/HEAD/src/context/WorkoutsContext.js"
+click node_server "https://github.com/phanitejakarri/Workout-Application-Backend/blob/HEAD/server.js"
+click node_routes "https://github.com/phanitejakarri/Workout-Application-Backend/blob/HEAD/routes/workouts.js"
+click node_ctrl "https://github.com/phanitejakarri/Workout-Application-Backend/blob/HEAD/contollers/workoutController.js"
+click node_model "https://github.com/phanitejakarri/Workout-Application-Backend/blob/HEAD/models/workoutModel.js"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_home,node_form,node_details toneBlue
+class node_server,node_routes,node_ctrl toneAmber
+class node_db toneMint
+class node_ctx,node_model toneIndigo

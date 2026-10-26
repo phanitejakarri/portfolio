@@ -1,0 +1,49 @@
+flowchart TD
+
+subgraph group_0["React + Sass · Vite"]
+  node_login["Login / Register<br/>[src/Pages/Login.jsx]"]
+  node_home["Home feed<br/>[src/components/HomeComponent.jsx]"]
+  node_profile["Profile<br/>[src/components/ProfileComponent.jsx]"]
+  node_conn["Connections<br/>[src/components/ConnectionsComponent.jsx]"]
+end
+
+subgraph group_1["Routing & API modules"]
+  node_routes["Routes<br/>[src/Routes/index.jsx]"]
+  node_authapi["AuthAPI.jsx<br/>[src/api/AuthAPI.jsx]"]
+  node_fsapi["FirestoreAPI.jsx<br/>[src/api/FirestoreAPI.jsx]"]
+  node_upload["ImageUpload.jsx<br/>[src/api/ImageUpload.jsx]"]
+end
+
+subgraph group_2["Firebase"]
+  node_auth[("Firebase Auth<br/>users")]
+  node_fs[("Cloud Firestore<br/>posts · likes · connections")]
+  node_storage[("Firebase Storage<br/>profile & post images")]
+end
+
+node_routes --> node_login
+node_login -->|"sign in"| node_authapi
+node_home -->|"post · like"| node_fsapi
+node_profile -->|"photo"| node_upload
+node_conn --> node_fsapi
+node_authapi --> node_auth
+node_fsapi -->|"real-time"| node_fs
+node_upload --> node_storage
+node_upload -->|"save link"| node_fsapi
+
+click node_login "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/Pages/Login.jsx"
+click node_home "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/components/HomeComponent.jsx"
+click node_profile "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/components/ProfileComponent.jsx"
+click node_conn "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/components/ConnectionsComponent.jsx"
+click node_routes "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/Routes/index.jsx"
+click node_authapi "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/api/AuthAPI.jsx"
+click node_fsapi "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/api/FirestoreAPI.jsx"
+click node_upload "https://github.com/phanitejakarri/Linkedin-clone/blob/HEAD/src/api/ImageUpload.jsx"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_login,node_home,node_profile,node_conn toneBlue
+class node_auth,node_fs,node_storage toneMint
+class node_routes,node_authapi,node_fsapi,node_upload toneIndigo

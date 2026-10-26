@@ -1,0 +1,47 @@
+flowchart TD
+
+subgraph group_0["React + Tailwind · Vercel"]
+  node_home["Home<br/>[src/pages/home/index.jsx]"]
+  node_admin["Admin<br/>[src/pages/admin/index.jsx]"]
+  node_modal["ConnectWalletModal<br/>[src/kda-wallet/components/ConnectWalletModal.jsx]"]
+  node_toasts["TxToastManager<br/>[src/components/tx_and_toasts/TxToastManager.jsx]"]
+end
+
+subgraph group_1["State & Pact"]
+  node_code["CodeBlock<br/>[src/components/tiles/code_block/CodeBlock.jsx]"]
+  node_slice["kadenaSlice<br/>[src/kda-wallet/store/kadenaSlice.jsx]"]
+  node_pact["pact/utils<br/>[src/pact/utils/utils.js]"]
+end
+
+subgraph group_2["Kadena"]
+  node_wallets{{"X-Wallet · Zelcore<br/>[src/kda-wallet/providers/providers.js]"}}
+  node_chain{{"Chainweb<br/>api.chainweb.com"}}
+end
+
+node_home -->|"flip"| node_slice
+node_admin --> node_code
+node_code -->|"run / send"| node_slice
+node_modal -->|"connect"| node_slice
+node_slice --> node_pact
+node_slice -->|"sign"| node_wallets
+node_pact -->|"send · listen"| node_chain
+node_pact --> node_toasts
+
+click node_home "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/pages/home/index.jsx"
+click node_admin "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/pages/admin/index.jsx"
+click node_modal "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/kda-wallet/components/ConnectWalletModal.jsx"
+click node_toasts "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/components/tx_and_toasts/TxToastManager.jsx"
+click node_code "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/components/tiles/code_block/CodeBlock.jsx"
+click node_slice "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/kda-wallet/store/kadenaSlice.jsx"
+click node_pact "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/pact/utils/utils.js"
+click node_wallets "https://github.com/phanitejakarri/Bchain-H-T/blob/HEAD/src/kda-wallet/providers/providers.js"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_home,node_admin,node_modal,node_toasts toneBlue
+class node_pact toneAmber
+class node_code,node_slice toneIndigo
+class node_wallets,node_chain toneRose

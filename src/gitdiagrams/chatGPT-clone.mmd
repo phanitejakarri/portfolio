@@ -1,0 +1,40 @@
+flowchart TD
+
+subgraph group_0["Live app · Netlify"]
+  node_live["Phani's AI<br/>React · Gemini-style UI"]
+  node_cards["Suggestion cards<br/>recent prompts sidebar"]
+end
+
+subgraph group_1["Vanilla JS client · Vite"]
+  node_form["Prompt form<br/>[client/index.html]"]
+  node_script["script.js<br/>[client/script.js]"]
+end
+
+subgraph group_2["Node server"]
+  node_server["server.js<br/>[server/server.js]"]
+end
+
+subgraph group_3["Models"]
+  node_gemini{{"Gemini API<br/>generateContent"}}
+  node_openai{{"OpenAI<br/>completions API"}}
+end
+
+node_live --> node_cards
+node_cards -->|"prompt"| node_gemini
+node_form -->|"submit"| node_script
+node_script -->|"fetch POST"| node_server
+node_server -->|"createCompletion"| node_openai
+
+click node_form "https://github.com/phanitejakarri/chatGPT-clone/blob/HEAD/client/index.html"
+click node_script "https://github.com/phanitejakarri/chatGPT-clone/blob/HEAD/client/script.js"
+click node_server "https://github.com/phanitejakarri/chatGPT-clone/blob/HEAD/server/server.js"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_live,node_form toneBlue
+class node_server toneAmber
+class node_script,node_cards toneIndigo
+class node_gemini,node_openai toneRose

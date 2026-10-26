@@ -1,0 +1,50 @@
+flowchart TD
+
+subgraph group_0["React + Sass · Vite"]
+  node_layout["BaseLayout<br/>[src/layout/BaseLayout.jsx]"]
+  node_sidebar["Sidebar<br/>[src/components/sidebar/Sidebar.jsx]"]
+  node_screen["DashboardScreen<br/>[src/screens/dashboard/DashboardScreen.jsx]"]
+  node_theme["ThemeContext<br/>[src/context/ThemeContext.jsx]"]
+end
+
+subgraph group_1["Dashboard widgets"]
+  node_cards["AreaCards<br/>[src/components/dashboard/areaCards/AreaCards.jsx]"]
+  node_bar["AreaBarChart<br/>[src/components/dashboard/areaCharts/AreaBarChart.jsx]"]
+  node_prog["AreaProgressChart<br/>[src/components/dashboard/areaCharts/AreaProgressChart.jsx]"]
+  node_table["AreaTable<br/>[src/components/dashboard/areaTable/AreaTable.jsx]"]
+end
+
+subgraph group_2["Libraries & state"]
+  node_recharts{{"Recharts<br/>BarChart · Tooltip"}}
+  node_sctx[("SidebarContext<br/>[src/context/SidebarContext.jsx]")]
+end
+
+node_layout --> node_sidebar
+node_layout --> node_screen
+node_screen --> node_cards
+node_screen --> node_bar
+node_screen --> node_prog
+node_screen --> node_table
+node_bar --> node_recharts
+node_sidebar --> node_sctx
+node_theme -->|"restyle"| node_table
+
+click node_layout "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/layout/BaseLayout.jsx"
+click node_sidebar "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/components/sidebar/Sidebar.jsx"
+click node_screen "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/screens/dashboard/DashboardScreen.jsx"
+click node_theme "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/context/ThemeContext.jsx"
+click node_cards "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/components/dashboard/areaCards/AreaCards.jsx"
+click node_bar "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/components/dashboard/areaCharts/AreaBarChart.jsx"
+click node_prog "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/components/dashboard/areaCharts/AreaProgressChart.jsx"
+click node_table "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/components/dashboard/areaTable/AreaTable.jsx"
+click node_sctx "https://github.com/phanitejakarri/react-dash/blob/HEAD/src/context/SidebarContext.jsx"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_layout,node_sidebar,node_screen toneBlue
+class node_sctx toneMint
+class node_theme,node_cards,node_bar,node_prog,node_table toneIndigo
+class node_recharts toneRose

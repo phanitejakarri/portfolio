@@ -1,0 +1,35 @@
+flowchart TD
+
+subgraph group_0["index.html · vanilla JS"]
+  node_keys["Keyboard input<br/>[index.html]"]
+  node_loop["update(step)<br/>[index.html]"]
+  node_hud["HUD<br/>[index.html]"]
+  node_road["drawQuad()<br/>[index.html]"]
+  node_sprites["Sprites<br/>[index.html]"]
+end
+
+subgraph group_1["Persistence"]
+  node_hs[("updateHighscore()<br/>[index.html]")]
+end
+
+node_keys --> node_loop
+node_loop -->|"draw"| node_road
+node_loop -->|"move"| node_sprites
+node_loop --> node_hud
+node_hud -->|"game over"| node_hs
+
+click node_keys "https://github.com/phanitejakarri/car-game/blob/HEAD/index.html"
+click node_loop "https://github.com/phanitejakarri/car-game/blob/HEAD/index.html"
+click node_hud "https://github.com/phanitejakarri/car-game/blob/HEAD/index.html"
+click node_road "https://github.com/phanitejakarri/car-game/blob/HEAD/index.html"
+click node_sprites "https://github.com/phanitejakarri/car-game/blob/HEAD/index.html"
+click node_hs "https://github.com/phanitejakarri/car-game/blob/HEAD/index.html"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_keys,node_hud toneBlue
+class node_hs toneMint
+class node_loop,node_road,node_sprites toneIndigo

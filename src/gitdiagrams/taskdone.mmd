@@ -1,0 +1,48 @@
+flowchart TD
+
+subgraph group_0["React + TypeScript · Vite"]
+  node_upload["ImageUpload<br/>[src/components/ImageUpload.tsx]"]
+  node_canvas["Canvas<br/>[src/components/Canvas/Canvas.tsx]"]
+  node_preview["ImagePreview<br/>[src/components/ImagePreview/ImagePreview.tsx]"]
+end
+
+subgraph group_1["Hooks & controls"]
+  node_controls["CanvasControls<br/>[src/components/Canvas/CanvasControls.tsx]"]
+  node_hook["useCanvas<br/>[src/hooks/useCanvas.ts]"]
+  node_blur["useBlurEffect<br/>[src/hooks/useBlurEffect.ts]"]
+end
+
+subgraph group_2["Processing"]
+  node_fabric{{"Fabric.js<br/>PencilBrush canvas"}}
+  node_proc["imageProcessing.ts<br/>[src/utils/imageProcessing.ts]"]
+  node_dl[("download.ts<br/>[src/utils/download.ts]")]
+end
+
+node_upload -->|"image"| node_canvas
+node_controls --> node_hook
+node_canvas --> node_hook
+node_hook --> node_fabric
+node_hook -->|"mask PNG"| node_preview
+node_preview --> node_blur
+node_blur --> node_proc
+node_proc --> node_dl
+
+click node_upload "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/components/ImageUpload.tsx"
+click node_canvas "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/components/Canvas/Canvas.tsx"
+click node_preview "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/components/ImagePreview/ImagePreview.tsx"
+click node_controls "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/components/Canvas/CanvasControls.tsx"
+click node_hook "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/hooks/useCanvas.ts"
+click node_blur "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/hooks/useBlurEffect.ts"
+click node_proc "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/utils/imageProcessing.ts"
+click node_dl "https://github.com/phanitejakarri/taskdone/blob/HEAD/src/utils/download.ts"
+
+classDef toneBlue fill:#dbeafe,stroke:#2563eb,stroke-width:1.5px,color:#172554
+classDef toneAmber fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#78350f
+classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
+classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
+classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
+class node_upload,node_canvas,node_preview toneBlue
+class node_proc toneAmber
+class node_dl toneMint
+class node_controls,node_hook,node_blur toneIndigo
+class node_fabric toneRose
